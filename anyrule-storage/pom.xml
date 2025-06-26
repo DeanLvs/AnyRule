@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承父 POM（统一版本/插件） -->
+    <parent>
+        <groupId>io.github.deanlvs</groupId>
+        <artifactId>anyrule-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>anyrule-storage</artifactId>
+    <name>AnyRule – Storage Layer (DB + Cache)</name>
+    <packaging>jar</packaging>
+
+    <!-- ============ 依赖 ============ -->
+    <dependencies>
+        <!-- 核心规则引擎：若需要在存储层直接调用规则或共享 DTO，可引入 -->
+        <dependency>
+            <groupId>io.github.deanlvs</groupId>
+            <artifactId>anyrule-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- 日志 API（父 POM 已统一版本） -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <!-- ───────────── 数据库侧 ───────────── -->
+        <!-- 连接池：HikariCP，轻量 & 高性能 -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>5.1.0</version>
+        </dependency>
+
+        <!-- JDBC 驱动：按你用的数据库替换 -->
+        <!-- 例：MySQL -->
+        <!--
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.4.0</version>
+        </dependency>
+        -->
+
+        <!-- ───────────── 缓存侧 ───────────── -->
+        <!-- 本地内存缓存：Caffeine -->
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>3.2.7</version>
+        </dependency>
+
+        <!-- 分布式缓存（可选）：Redis 客户端 Lettuce（支持虚拟线程，更推荐） -->
+        <dependency>
+            <groupId>io.lettuce</groupId>
+            <artifactId>lettuce-core</artifactId>
+            <version>6.3.2.RELEASE</version>
+        </dependency>
+
+        <!-- ───────────── 测试依赖 ───────────── -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- 如果想做真库/真 Redis 集成测试，可加 Testcontainers -->
+        <!--
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>1.19.6</version>
+            <scope>test</scope>
+        </dependency>
+        -->
+    </dependencies>
+
+    <!-- ============ 插件（沿用父 POM 统一配置即可） ============ -->
+</project>

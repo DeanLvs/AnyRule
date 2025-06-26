@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.deanlvs</groupId>
+        <artifactId>anyrule-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>anyrule-transport-http</artifactId>
+    <name>AnyRule – HTTP Transport</name>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <!-- 依赖核心规则引擎 -->
+        <dependency>
+            <groupId>io.github.deanlvs</groupId>
+            <artifactId>anyrule-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- 日志 API（可选，已随 core 传递引入） -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <!-- 测试 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

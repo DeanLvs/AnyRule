@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- ─────────────── 根坐标 ─────────────── -->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>io.github.deanlvs</groupId>
+    <artifactId>anyrule-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>AnyRule · Parent</name>
+    <description>Multi-module skeleton for a pure-Java 21 rule engine</description>
+    <!-- 作为父 POM，只聚合各子模块 -->
+    <packaging>pom</packaging>
+
+    <!-- ─────────────── 项目元数据 (开源友好) ─────────────── -->
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/DeanLvs/AnyRule</url>
+        <connection>scm:git:git://github.com/DeanLvs/AnyRule.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/DeanLvs/AnyRule.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <!-- ─────────────── 通用属性 ─────────────── -->
+    <properties>
+        <!-- Java 21 编译 -->
+        <maven.compiler.release>21</maven.compiler.release>
+
+        <!-- 依赖版本 -->
+        <slf4j.version>2.0.13</slf4j.version>
+        <logback.version>1.5.5</logback.version>
+        <junit.jupiter.version>5.11.0</junit.jupiter.version>
+
+        <!-- 插件版本 -->
+        <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
+        <maven.surefire.plugin.version>3.5.3</maven.surefire.plugin.version>
+        <maven.shade.plugin.version>3.5.0</maven.shade.plugin.version>
+    </properties>
+
+    <!-- ─────────────── 统一依赖版本管理 ─────────────── -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- 日志 API -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <!-- 运行时日志实现（子模块如需可声明 scope=runtime） -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+            <!-- JUnit 5 -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit.jupiter.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- ─────────────── 统一插件版本管理 ─────────────── -->
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Java 21 编译 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.plugin.version}</version>
+                    <configuration>
+                        <release>${maven.compiler.release}</release>
+                    </configuration>
+                </plugin>
+
+                <!-- 单元测试 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.plugin.version}</version>
+                    <configuration>
+                        <!-- JUnit 5 自动发现 -->
+                        <useModulePath>false</useModulePath>
+                    </configuration>
+                </plugin>
+
+                <!-- 可执行 Uber-Jar（子模块需要时自行启用） -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>${maven.shade.plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <!-- ─────────────── 多模块聚合 ─────────────── -->
+    <modules>
+        <module>anyrule-core</module>
+        <module>anyrule-transport-http</module>
+        <module>anyrule-transport-rpc</module>
+        <module>anyrule-launcher</module>
+        <module>anyrule-storage</module>
+        <module>benchmark</module>
+    </modules>
+</project>

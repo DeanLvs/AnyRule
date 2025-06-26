@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.deanlvs</groupId>
+        <artifactId>anyrule-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>anyrule-launcher</artifactId>
+    <name>AnyRule – Launcher</name>
+    <packaging>jar</packaging>
+
+    <!-- ===== 依赖 ===== -->
+    <dependencies>
+        <!-- 核心 -->
+        <dependency>
+            <groupId>io.github.deanlvs</groupId>
+            <artifactId>anyrule-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- 传输层实现（任选其一或同时打包） -->
+        <dependency>
+            <groupId>io.github.deanlvs</groupId>
+            <artifactId>anyrule-transport-http</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.deanlvs</groupId>
+            <artifactId>anyrule-transport-rpc</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- 日志实现（运行时） -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- 测试 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- ===== 打包成 Uber-Jar ===== -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>${maven.shade.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals><goal>shade</goal></goals>
+                        <configuration>
+                            <createDependencyReducedPom>true</createDependencyReducedPom>
+                            <shadeManifestEntries>
+                                <Main-Class>io.github.deanlvs.anyrule.launcher.Main</Main-Class>
+                            </shadeManifestEntries>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
